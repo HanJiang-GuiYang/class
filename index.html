@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>六班 - 青春飞扬 梦想起航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { transform: translateY(-100px) rotate(180deg); opacity: 1; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header .slogan {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .countdown-box {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .countdown-box h3 {
+            margin-bottom: 10px;
+        }
+
+        .countdown-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .gallery-placeholder span {
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .member-card {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .member-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .member-role {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .honor-list {
+            list-style: none;
+        }
+
+        .honor-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .honor-icon {
+            font-size: 2rem;
+        }
+
+        .message-board {
+            min-height: 300px;
+        }
+
+        .message-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .message-input:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .message-list {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .message-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .message-author {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .message-time {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .tool-card {
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .tool-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: modalPop 0.3s ease;
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .result-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+            min-height: 60px;
+        }
+
+        .quote-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .quote-text {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .quote-author {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .music-player {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .music-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: #f5576c;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .music-info {
+            flex: 1;
+        }
+
+        .music-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .music-progress {
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .music-progress-bar {
+            height: 100%;
+            background: white;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .header .slogan {
+                font-size: 1.2rem;
+            }
+            .countdown-display {
+                font-size: 1.8rem;
+            }
+            .nav-tab {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🎓 六班</h1>
+            <p class="slogan">青春飞扬 梦想起航</p>
+            <p style="color: #999; margin-bottom: 15px;">我们是一个团结友爱、积极向上的集体</p>
+            
+            <div class="countdown-box">
+                <h3>⏰ 距离高考还有</h3>
+                <div class="countdown-display" id="countdown">计算中...</div>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="gallery">📸 班级相册</button>
+            <button class="nav-tab" data-tab="members">👥 班级成员</button>
+            <button class="nav-tab" data-tab="honors">🏆 荣誉墙</button>
+            <button class="nav-tab" data-tab="messages">💬 留言板</button>
+            <button class="nav-tab" data-tab="tools">🎮 趣味工具</button>
+            <button class="nav-tab" data-tab="music">🎵 音乐角</button>
+        </div>
+
+        <div class="content-section active" id="gallery-section">
+            <div class="card">
+                <h2>📸 班级相册</h2>
+                <p style="color: #666; margin-bottom: 20px;">记录我们美好的瞬间</p>
+                <div style="margin-bottom: 20px;">
+                    <input type="file" id="photoUpload" multiple accept="image/*" style="display: none;" onchange="handlePhotoUpload(event)">
+                    <button class="btn" onclick="document.getElementById('photoUpload').click()">📷 批量上传照片</button>
+                    <button class="btn" onclick="loadPhotosFromFolder()" style="margin-left: 10px; background: linear-gradient(135deg, #f093fb, #f5576c);">📁 从文件夹加载</button>
+                </div>
+                <div class="gallery-grid" id="galleryGrid">
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🏫
+                            <span>班级合影</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🎉
+                            <span>运动会</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            📚
+                            <span>学习时光</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🎭
+                            <span>文艺汇演</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🏕️
+                            <span>春游活动</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🎓
+                            <span>毕业季</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="members-section">
+            <div class="card">
+                <h2>👥 班级成员</h2>
+                <p style="color: #666; margin-bottom: 20px;">我们是一个温暖的大家庭</p>
+                <div style="margin-bottom: 20px;">
+                    <input type="file" id="memberPhotoUpload" multiple accept="image/*" style="display: none;" onchange="handleMemberPhotoUpload(event)">
+                    <button class="btn" onclick="document.getElementById('memberPhotoUpload').click()">📷 批量上传成员照片</button>
+                </div>
+                <div class="members-grid" id="membersGrid">
+                    <div class="member-card">
+                        <div class="member-avatar">👨‍🏫</div>
+                        <div class="member-name">班主任</div>
+                        <div class="member-role">班主任</div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-avatar">👨‍🎓</div>
+                        <div class="member-name">班长</div>
+                        <div class="member-role">班长</div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-avatar">👩‍🎓</div>
+                        <div class="member-name">学习委员</div>
+                        <div class="member-role">学习委员</div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-avatar">👨‍🎓</div>
+                        <div class="member-name">体育委员</div>
+                        <div class="member-role">体育委员</div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-avatar">👩‍🎓</div>
+                        <div class="member-name">文艺委员</div>
+                        <div class="member-role">文艺委员</div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-avatar">👨‍🎓</div>
+                        <div class="member-name">生活委员</div>
+                        <div class="member-role">生活委员</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="honors-section">
+            <div class="card">
+                <h2>🏆 荣誉墙</h2>
+                <p style="color: #666; margin-bottom: 20px;">我们的骄傲与荣耀</p>
+                <ul class="honor-list">
+                    <li class="honor-item">
+                        <span class="honor-icon">🥇</span>
+                        <div>
+                            <strong>校级优秀班集体</strong>
+                            <p>2024年度</p>
+                        </div>
+                    </li>
+                    <li class="honor-item">
+                        <span class="honor-icon">🏆</span>
+                        <div>
+                            <strong>运动会团体第一名</strong>
+                            <p>2024年秋季运动会</p>
+                        </div>
+                    </li>
+                    <li class="honor-item">
+                        <span class="honor-icon">📚</span>
+                        <div>
+                            <strong>学习标兵班级</strong>
+                            <p>2024年第一学期</p>
+                        </div>
+                    </li>
+                    <li class="honor-item">
+                        <span class="honor-icon">🎭</span>
+                        <div>
+                            <strong>文艺汇演最佳节目奖</strong>
+                            <p>2024年元旦晚会</p>
+                        </div>
+                    </li>
+                    <li class="honor-item">
+                        <span class="honor-icon">🌟</span>
+                        <div>
+                            <strong>文明班级</strong>
+                            <p>连续三个月获得</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section" id="messages-section">
+            <div class="card">
+                <h2>💬 留言板</h2>
+                <p style="color: #666; margin-bottom: 20px;">写下你想说的话</p>
+                <div class="quote-box">
+                    <div class="quote-text" id="dailyQuote">青春是一场大雨，即使感冒了，还盼望回头再淋它一次。</div>
+                    <div class="quote-author" id="quoteAuthor">—— 九把刀</div>
+                </div>
+                <textarea class="message-input" id="messageInput" placeholder="写下你的留言..."></textarea>
+                <input type="text" id="authorInput" placeholder="你的名字" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 10px; margin-bottom: 15px;">
+                <button class="btn" onclick="addMessage()">✨ 发表留言</button>
+                <div class="message-list" id="messageList"></div>
+            </div>
+        </div>
+
+        <div class="content-section" id="tools-section">
+            <div class="card">
+                <h2>🎮 趣味工具</h2>
+                <p style="color: #666; margin-bottom: 20px;">来玩点有趣的吧！</p>
+                <div class="tools-grid">
+                    <div class="tool-card" onclick="randomPick()">
+                        <div class="tool-icon">🎲</div>
+                        <div class="tool-name">随机点名</div>
+                    </div>
+                    <div class="tool-card" onclick="randomGroup()">
+                        <div class="tool-icon">👥</div>
+                        <div class="tool-name">随机分组</div>
+                    </div>
+                    <div class="tool-card" onclick="luckyDraw()">
+                        <div class="tool-icon">🎁</div>
+                        <div class="tool-name">幸运抽奖</div>
+                    </div>
+                    <div class="tool-card" onclick="showQuote()">
+                        <div class="tool-icon">💡</div>
+                        <div class="tool-name">每日一句</div>
+                    </div>
+                </div>
+                <div class="result-display" id="toolResult"></div>
+            </div>
+        </div>
+
+        <div class="content-section" id="music-section">
+            <div class="card">
+                <h2>🎵 音乐角</h2>
+                <p style="color: #666; margin-bottom: 20px;">听听音乐，放松一下</p>
+                <div class="music-player">
+                    <button class="music-btn" id="playBtn" onclick="toggleMusic()">▶️</button>
+                    <div class="music-info">
+                        <div class="music-title">班级之歌 - 待定</div>
+                        <div class="music-progress">
+                            <div class="music-progress-bar" id="progressBar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px;">
+                    <h3 style="margin-bottom: 15px; color: #667eea;">推荐歌单</h3>
+                    <ul style="list-style: none;">
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 8px; border-radius: 8px; cursor: pointer;">🎵 青春修炼手册 - TFBOYS</li>
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 8px; border-radius: 8px; cursor: pointer;">🎵 追梦赤子心 - GALA</li>
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 8px; border-radius: 8px; cursor: pointer;">🎵 倔强 - 五月天</li>
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 8px; border-radius: 8px; cursor: pointer;">🎵 夜空中最亮的星 - 逃跑计划</li>
+                        <li style="padding: 10px; background: #f8f9fa; margin-bottom: 8px; border-radius: 8px; cursor: pointer;">🎵 平凡之路 - 朴树</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 六班 | 青春不散场，我们永远在一起 ❤️</p>
+        </div>
+    </div>
+
+    <div class="modal" id="resultModal">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <h2 id="modalTitle">结果</h2>
+            <div class="result-display" id="modalResult"></div>
+            <button class="btn" onclick="closeModal()">关闭</button>
+        </div>
+    </div>
+
+    <script>
+        const members = ['张三', '李四', '王五', '赵六', '孙七', '周八', '吴九', '郑十', '小明', '小红', '小刚', '小丽', '小强', '小芳', '小伟', '小敏'];
+
+        const quotes = [
+            { text: '青春是一场大雨，即使感冒了，还盼望回头再淋它一次。', author: '九把刀' },
+            { text: '青春是一本太仓促的书，我们含着泪，一读再读。', author: '席慕容' },
+            { text: '生活不止眼前的苟且，还有诗和远方。', author: '高晓松' },
+            { text: '愿你出走半生，归来仍是少年。', author: '未知' },
+            { text: '星光不问赶路人，时光不负有心人。', author: '未知' },
+            { text: '你若盛开，清风自来。', author: '未知' },
+            { text: '越努力，越幸运。', author: '未知' },
+            { text: '青春无悔，梦想无畏。', author: '未知' }
+        ];
+
+        const honors = ['学习标兵', '运动健将', '文艺之星', '劳动模范', '助人为乐', '进步之星'];
+
+        function initParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        function updateCountdown() {
+            const targetDate = new Date('2025-06-07');
+            const now = new Date();
+            const diff = targetDate - now;
+            
+            if (diff <= 0) {
+                document.getElementById('countdown').textContent = '高考已结束';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            document.getElementById('countdown').textContent = `${days}天 ${hours}小时 ${minutes}分`;
+        }
+
+        function initTabs() {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const sections = document.querySelectorAll('.content-section');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(`${tabId}-section`).classList.add('active');
+                });
+            });
+        }
+
+        function addMessage() {
+            const message = document.getElementById('messageInput').value.trim();
+            const author = document.getElementById('authorInput').value.trim() || '匿名同学';
+            
+            if (!message) {
+                alert('请输入留言内容');
+                return;
+            }
+            
+            const messageList = document.getElementById('messageList');
+            const messageItem = document.createElement('div');
+            messageItem.className = 'message-item';
+            
+            const now = new Date();
+            const timeStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            
+            messageItem.innerHTML = `
+                <div class="message-author">${author}</div>
+                <div>${message}</div>
+                <div class="message-time">${timeStr}</div>
+            `;
+            
+            messageList.insertBefore(messageItem, messageList.firstChild);
+            
+            document.getElementById('messageInput').value = '';
+            
+            const messages = JSON.parse(localStorage.getItem('class6_messages') || '[]');
+            messages.unshift({ author, message, time: timeStr });
+            localStorage.setItem('class6_messages', JSON.stringify(messages));
+        }
+
+        function loadMessages() {
+            const messages = JSON.parse(localStorage.getItem('class6_messages') || '[]');
+            const messageList = document.getElementById('messageList');
+            
+            messages.forEach(msg => {
+                const messageItem = document.createElement('div');
+                messageItem.className = 'message-item';
+                messageItem.innerHTML = `
+                    <div class="message-author">${msg.author}</div>
+                    <div>${msg.message}</div>
+                    <div class="message-time">${msg.time}</div>
+                `;
+                messageList.appendChild(messageItem);
+            });
+        }
+
+        function randomPick() {
+            const result = members[Math.floor(Math.random() * members.length)];
+            showModal('🎲 随机点名', result);
+        }
+
+        function randomGroup() {
+            const shuffled = [...members].sort(() => Math.random() - 0.5);
+            const groupSize = 4;
+            const groups = [];
+            
+            for (let i = 0; i < shuffled.length; i += groupSize) {
+                groups.push(shuffled.slice(i, i + groupSize));
+            }
+            
+            let result = '';
+            groups.forEach((group, index) => {
+                result += `第${index + 1}组: ${group.join('、')}\n`;
+            });
+            
+            showModal('👥 随机分组', result);
+        }
+
+        function luckyDraw() {
+            const prizes = ['🎁 精美笔记本', '📚 课外读物', '🖊️ 限量版笔', '🎫 免作业券', '⭐ 班级之星', '🎉 神秘大奖'];
+            const result = prizes[Math.floor(Math.random() * prizes.length)];
+            showModal('🎁 幸运抽奖', result);
+        }
+
+        function showQuote() {
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('dailyQuote').textContent = quote.text;
+            document.getElementById('quoteAuthor').textContent = `—— ${quote.author}`;
+        }
+
+        function showModal(title, result) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalResult').textContent = result;
+            document.getElementById('resultModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('resultModal').classList.remove('active');
+        }
+
+        let isPlaying = false;
+        function toggleMusic() {
+            isPlaying = !isPlaying;
+            document.getElementById('playBtn').textContent = isPlaying ? '⏸️' : '▶️';
+            
+            if (isPlaying) {
+                simulateProgress();
+            }
+        }
+
+        function simulateProgress() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                if (!isPlaying || progress >= 100) {
+                    clearInterval(interval);
+                    if (progress >= 100) {
+                        isPlaying = false;
+                        document.getElementById('playBtn').textContent = '▶️';
+                    }
+                    return;
+                }
+                progress += 0.5;
+                document.getElementById('progressBar').style.width = progress + '%';
+            }, 100);
+        }
+
+        function handlePhotoUpload(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+            
+            const formData = new FormData();
+            for (let file of files) {
+                formData.append('photos', file);
+            }
+            
+            fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.files) {
+                    loadGalleryPhotos();
+                    alert('上传成功！共上传 ' + data.files.length + ' 张照片');
+                }
+            })
+            .catch(error => {
+                alert('上传失败: ' + error.message);
+            });
+        }
+
+        function loadGalleryPhotos() {
+            fetch('/api/photos')
+                .then(response => response.json())
+                .then(data => {
+                    const galleryGrid = document.getElementById('galleryGrid');
+                    galleryGrid.innerHTML = '';
+                    
+                    if (data.photos && data.photos.length > 0) {
+                        data.photos.forEach(photo => {
+                            const galleryItem = document.createElement('div');
+                            galleryItem.className = 'gallery-item';
+                            galleryItem.innerHTML = `
+                                <img src="${photo.url}" alt="${photo.filename}">
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 8px; font-size: 0.9rem;">
+                                    ${photo.filename}
+                                </div>
+                            `;
+                            galleryGrid.appendChild(galleryItem);
+                        });
+                    } else {
+                        galleryGrid.innerHTML = '<p style="color: #666; text-align: center; grid-column: 1/-1;">暂无照片，点击"批量上传照片"开始上传</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('加载照片失败:', error);
+                });
+        }
+
+        function loadPhotosFromFolder() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.webkitdirectory = true;
+            input.directory = true;
+            input.multiple = true;
+            input.accept = 'image/*';
+            input.onchange = function(event) {
+                handlePhotoUpload(event);
+            };
+            input.click();
+        }
+
+        function handleMemberPhotoUpload(event) {
+            const files = event.target.files;
+            const membersGrid = document.getElementById('membersGrid');
+            
+            for (let file of files) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const memberCard = document.createElement('div');
+                    memberCard.className = 'member-card';
+                    memberCard.innerHTML = `
+                        <div class="member-avatar" style="padding: 0; overflow: hidden;">
+                            <img src="${e.target.result}" alt="${file.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="member-name">${file.name.replace(/\.[^/.]+$/, "")}</div>
+                        <div class="member-role">同学</div>
+                    `;
+                    membersGrid.appendChild(memberCard);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initParticles();
+            updateCountdown();
+            setInterval(updateCountdown, 60000);
+            initTabs();
+            loadMessages();
+            showQuote();
+            loadGalleryPhotos();
+            
+            document.getElementById('resultModal').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+        });
+    </script>
+</body>
+</html>
